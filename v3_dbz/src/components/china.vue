@@ -57,7 +57,6 @@ export default {
     var b = new yqsf(e.provinceShortName,e.confirmedCount)
         e.cities.forEach(d=>{
             var c = new yqsf(d.cityName,d.confirmedCount)
-            console.log(d.cityName)
             shengnei.push(c)
         })
     seriesData.push(b)
@@ -81,6 +80,17 @@ export default {
           tooltip: {
               trigger: 'item',
               formatter: '{b}<br/>{c} 累计确诊人数'
+          },
+          visualMap:{
+            type:'',
+            pieces:[
+              {min:0,max:1},
+              {min:1,max:10},
+              {min:10,max:100},
+              {min:100,max:1000},
+              {min:1000,max:10000},
+              {min:10000,},
+            ]
           },
         series: [
           {
