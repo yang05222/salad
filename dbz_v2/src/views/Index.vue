@@ -12,15 +12,15 @@
           <router-link to="/register">注册</router-link>
         </div>
         <div class="header_right header_top1">
-          <DropdownMenu @click="trigger" :datas="param" className="custom-dropdown-11">
-            <span>预约检测</span>
+          <DropdownMenu :datas="param" @click="trigger" className="custom-dropdown-11">
+            <span class="spyu">预约检测</span>
           </DropdownMenu>
         </div>
       </div>
     </div>
     <div class="titpic">
       <div class="top_left">
-        <p>新型冠状病毒</p> 
+        <p>新型冠状病毒</p>
         <p>疫情实时大数据报告</p>
         <p>共{{ gkrs }}人次已经观看</p>
       </div>
@@ -44,7 +44,7 @@
             <div>
               <Row>
                 <Cell v-for="(n, i) in sj" :key="i" width="8">
-                  <div class="gn_number">
+                  <div class="gn_number bg-gray2-color">
                     <span>{{ n.name }}</span>
                     <div class="number">{{ n.lj }}</div>
                     <div class="day">昨日+{{ n.xz }}</div>
@@ -52,9 +52,6 @@
                 </Cell>
               </Row>
             </div>
-        <china v-if="zt" :yqsj="yqsj"></china>
-        <shujubiao></shujubiao>
-    <my-table v-if="zt" :yqsj="yqsj"></my-table>
           </div>
           <div v-show="xz == 'gw'" class="ty">
             <div class="gn_1">
@@ -64,13 +61,24 @@
               </div>
             </div>
             <div>
-             <div class="wsj">抱歉:暂无数据</div>
+              <Row>
+                <Cell v-for="n in 1" :key="n" width="6">
+                  <div class="gn_number bg-gray2-color">
+                    <span>现有重症</span>
+                    <div class="number">1111</div>
+                    <div class="day">昨日+12</div>
+                  </div>
+                </Cell>
+              </Row>
             </div>
           </div>
         </div>
+        <china v-if="zt" :yqsj="yqsj"></china>
+        <shujubiao></shujubiao>
       </div>
     </div>
 
+    <my-table v-if="zt" :yqsj="yqsj"></my-table>
         <footers></footers>
   </div>
 </template>
@@ -115,12 +123,6 @@ body {
 }
 .index .header_right .custom-dropdown-11:hover {
   color: #10aeb5;
-}
-.wsj{
-  text-align: center;
-  font-size: 24px;
-  font-weight: bolder;
-  color: #000;
 }
 .h-dropdown-inner .h-dropdowncustom-group {
   background: #10aeb5;
@@ -193,9 +195,6 @@ body {
   color: #10aeb5;
   border-bottom: 3px solid #10aeb5;
 }
-.bg-gray2-color{
-  background-color: #faa !important;
-}
 .index .top {
   line-height: 30px;
 }
@@ -236,7 +235,10 @@ body {
   font-size: 10px;
   color: rgb(153, 153, 153);
 }
-/* .index .titpic p:nth-child(2){
+.index .spyu{
+  cursor: pointer;
+}
+.index .titpic p:nth-child(2){
   font-size: 32px;
   font-weight: bold;
   color: #fff;
@@ -244,7 +246,7 @@ body {
   -webkit-background-clip:text;
   background-clip: text;
   -webkit-text-fill-color:transparent;
-} */
+}
 </style>
 <script>
 import china from "../components/china";
@@ -254,7 +256,7 @@ import shujubiao from "../components/shujubiao";
 export default {
   data() {
     return {
-      param: [{title:"立即预约",key:'/yuyue'}, {title:'我的预约',key:''},{title:"相关问题",key:'/question'},{title:"体温检测",key:''}],
+      param: [{title:"立即预约",key:'test1'},{title:"我的预约",key:'test2'},{title:"相关问题",key:'test3'},],
       gkrs: 0,
       activeName: "first",
       xz: "gn",
@@ -262,15 +264,20 @@ export default {
       yqsj: [],
       sj: [],
       zt: false,
-      gwsj:[]
     };
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    trigger(v){
-      !v? this.$Message.error( `当前页面还未开放尽情期待~` ):this.$router.push(v)
+    trigger(a){
+        if(a=='test1'){
+          this.$router.push('/yuyue')
+        }else if(a=='test2'){
+          this.$router.push('/')
+        }else if(a=='test3'){
+          this.$router.push('/question')
+        }
     }
   },
   mounted() {
